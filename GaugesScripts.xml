@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE MudletPackage>
+<MudletPackage version="1.001">
+	<ScriptPackage>
+		<ScriptGroup isActive="yes" isFolder="yes">
+			<name>Gauges</name>
+			<packageName></packageName>
+			<script>gaugesExist = false</script>
+			<eventHandlerList />
+			<Script isActive="yes" isFolder="no">
+				<name>createGauges</name>
+				<packageName></packageName>
+				<script>function createGauges() 
+  setBorderBottom(60)
+      
+  width, height = getMainWindowSize()
+  width = width 
+  height = height - 45 -- Space for gauges
+  gap = width / 100 -- 1% x 10 spaces around 10 bars = 10%
+  smallBarWidth = width * ( 6 / 100 ) -- 6% x 5 small bars =  30%
+  largeBarWidth =  width * ( 11.8 / 100 ) -- 11.8% x 5 large bars =  59%
+  
+  createLabel("gaugeBackground", 0, height, width, 40, 1)
+  setBackgroundColor("gaugeBackground", 90, 90, 90, 255)
+  
+  totalGap = gap
+  
+  createGauge("vitBar", largeBarWidth, 20, totalGap, height + 10, "Vitality: ", 222, 40, 40)
+  totalGap = totalGap + largeBarWidth + gap
+  
+  createGauge("essBar", largeBarWidth, 20, totalGap, height + 10, "Essence: ", 70, 115, 222)
+  totalGap = totalGap + largeBarWidth + gap
+  
+  createGauge("stamBar", largeBarWidth, 20, totalGap, height + 10, "Stamina: ", 212, 181, 72)
+  totalGap = totalGap + largeBarWidth + gap
+  
+  createGauge("willBar", largeBarWidth, 20, totalGap, height + 10, "Willpower: ", 70, 222, 95)
+  totalGap = totalGap + largeBarWidth + gap
+  
+  createGauge("rtBar", smallBarWidth, 20, totalGap, height + 10, "RT: 0", 170, 170, 170)
+  totalGap = totalGap + smallBarWidth + gap
+  
+  createGauge("ptBar", smallBarWidth, 20, totalGap, height + 10, "PT: 0", 170, 170, 170)
+  totalGap = totalGap + smallBarWidth + gap
+  
+  createGauge("stBar", smallBarWidth, 20, totalGap, height + 10, "ST: 0", 170, 170, 170)
+  totalGap = totalGap + smallBarWidth + gap
+  
+  createGauge("utBar", smallBarWidth, 20, totalGap, height + 10, "UT: 0", 170, 170, 170)
+  totalGap = totalGap + smallBarWidth + gap
+  
+  createGauge("htBar", smallBarWidth, 20, totalGap, height + 10, "HT: 0", 170, 170, 170)
+  totalGap = totalGap + smallBarWidth + gap
+  
+  createGauge("expBar", largeBarWidth, 20, totalGap, height + 10, "Exp To Level: ", 200, 200, 200)
+  totalGap = totalGap + largeBarWidth + gap
+  
+  gaugesExist = true
+end
+
+createGauges()</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>updateGauge</name>
+				<packageName></packageName>
+				<script>function updateGauge(name, tag, value)
+
+  if tag == "vitality" then
+    data = {}
+    for str in string.gmatch(value, "([^:]+)") do
+      table.insert(data, str)
+    end
+    setGauge("vitBar", data[1], data[2], "Vitality: " .. data[1] .. " / " .. data[2])
+    
+  elseif tag == "essence" then
+    data = {}
+    for str in string.gmatch(value, "([^:]+)") do
+      table.insert(data, str)
+    end
+    setGauge("essBar", data[1], data[2], "Essence: " .. data[1] .. " / " .. data[2])
+    
+  elseif tag == "stamina" then
+    data = {}
+    for str in string.gmatch(value, "([^:]+)") do
+      table.insert(data, str)
+    end
+    setGauge("stamBar", data[1], data[2], "Stamina: " .. data[1] .. " / " .. data[2])
+    
+  elseif tag == "willpower" then
+    data = {}
+    for str in string.gmatch(value, "([^:]+)") do
+      table.insert(data, str)
+    end
+    setGauge("willBar", data[1], data[2], "Willpower: " .. data[1] .. " / " .. data[2])
+    
+  elseif tag == "rt" then
+    if total == nil then 
+      total = 0
+    end
+
+    value = tonumber(value)
+    if value &gt; total then 
+      total = value
+    end
+
+    setGauge("rtBar", value, total, "RT: " .. value)
+
+    if value == 0 then 
+      total = 0
+    end
+    
+  elseif tag == "pt" then
+    if total == nil then 
+      total = 0
+    end
+
+    value = tonumber(value)
+    if value &gt; total then 
+      total = value
+    end
+
+    setGauge("ptBar", value, total, "PT: " .. value)
+
+    if value == 0 then 
+      total = 0
+    end
+    
+  elseif tag == "st" then
+    if total == nil then 
+      total = 0
+    end
+
+    value = tonumber(value)
+    if value &gt; total then 
+      total = value
+    end
+
+    setGauge("stBar", value, total, "ST: " .. value)
+
+    if value == 0 then 
+      total = 0
+    end
+    
+  elseif tag == "ut" then
+    if total == nil then 
+      total = 0
+    end
+
+    value = tonumber(value)
+    if value &gt; total then 
+      total = value
+    end
+
+    setGauge("utBar", value, total, "UT: " .. value)
+
+    if value == 0 then 
+      total = 0
+    end
+    
+  elseif tag == "ht" then
+    if total == nil then 
+      total = 0
+    end
+
+    value = tonumber(value)
+    if value &gt; total then 
+      total = value
+    end
+
+    setGauge("htBar", value, total, "HT: " .. value)
+
+    if value == 0 then 
+      total = 0
+    end
+    
+  elseif tag == "experiencetolevel" then
+    experienceToLevel = tonumber(value)
+    
+  elseif tag == "experience" then
+    remainingExp = experienceToLevel - tonumber(value)
+    setGauge("expBar", tonumber(value), experienceToLevel, "Exp To Level: " .. remainingExp)
+  end
+end
+
+registerAnonymousEventHandler("updateGauge", updateGauge, false)</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>resizeGauges</name>
+				<packageName></packageName>
+				<script>function resizeGauges(event, x, y)
+  if gaugesExist == false then
+    createGauges()
+  else
+    width = x 
+    height = y + 15
+    gap = width / 100 -- 1% x 10 spaces around 10 bars = 10%
+    smallBarWidth = width * ( 6 / 100 ) -- 6% x 5 small bars =  30%
+    largeBarWidth =  width * ( 11.8 / 100 ) -- 11.8% x 5 large bars =  59%
+    totalGap = gap
+    
+    resizeWindow("gaugeBackground", width, 40)
+    moveWindow("gaugeBackground", 0, height)
+
+    resizeGauge("vitBar", largeBarWidth, 20)
+    moveGauge("vitBar", totalGap, height + 10)
+    totalGap = totalGap + largeBarWidth + gap
+    
+    resizeGauge("essBar", largeBarWidth, 20)
+    moveGauge("essBar", totalGap, height + 10)
+    totalGap = totalGap + largeBarWidth + gap
+    
+    resizeGauge("stamBar", largeBarWidth, 20)
+    moveGauge("stamBar", totalGap, height + 10)
+    totalGap = totalGap + largeBarWidth + gap
+    
+    resizeGauge("willBar", largeBarWidth, 20)
+    moveGauge("willBar", totalGap, height + 10)
+    totalGap = totalGap + largeBarWidth + gap
+    
+    resizeGauge("rtBar", smallBarWidth, 20)
+    moveGauge("rtBar", totalGap, height + 10)
+    totalGap = totalGap + smallBarWidth + gap
+    
+    resizeGauge("ptBar", smallBarWidth, 20)
+    moveGauge("ptBar", totalGap, height + 10)
+    totalGap = totalGap + smallBarWidth + gap
+    
+    resizeGauge("stBar", smallBarWidth, 20)
+    moveGauge("stBar", totalGap, height + 10)
+    totalGap = totalGap + smallBarWidth + gap
+    
+    resizeGauge("utBar", smallBarWidth, 20)
+    moveGauge("utBar", totalGap, height + 10)
+    totalGap = totalGap + smallBarWidth + gap
+    
+    resizeGauge("htBar", smallBarWidth, 20)
+    moveGauge("htBar", totalGap, height + 10)
+    totalGap = totalGap + smallBarWidth + gap
+    
+    resizeGauge("expBar", largeBarWidth, 20)
+    moveGauge("expBar", totalGap, height + 10)
+    totalGap = totalGap + largeBarWidth + gap
+  end
+end
+
+registerAnonymousEventHandler("sysWindowResizeEvent", resizeGauges, false)</script>
+				<eventHandlerList />
+			</Script>
+		</ScriptGroup>
+	</ScriptPackage>
+</MudletPackage>
