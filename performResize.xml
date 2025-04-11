@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE MudletPackage>
+<MudletPackage version="1.001">
+	<ScriptPackage>
+		<Script isActive="yes" isFolder="no">
+			<name>performResize</name>
+			<packageName></packageName>
+			<script>function performResize(event, x, y)
+  resizeGauges(event, x, y)
+  resizeWindows(event, x, y)
+end
+
+registerAnonymousEventHandler("sysWindowResizeEvent", performResize, false)</script>
+			<eventHandlerList />
+		</Script>
+	</ScriptPackage>
+</MudletPackage>

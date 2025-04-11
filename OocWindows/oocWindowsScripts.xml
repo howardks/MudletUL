@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE MudletPackage>
+<MudletPackage version="1.001">
+	<ScriptPackage>
+		<ScriptGroup isActive="yes" isFolder="yes">
+			<name>OOCWindows</name>
+			<packageName></packageName>
+			<script>windowsExist = false</script>
+			<eventHandlerList />
+			<Script isActive="yes" isFolder="no">
+				<name>createChatWindow</name>
+				<packageName></packageName>
+				<script>function createChatWindow() 
+  width, height = getMainWindowSize()
+  createScrollBox("chatScroll", 3 * (width / 4) - 15, 0, width / 4, height / 4)
+  createLabel("chatScroll", "chatLabel", 0, 0, (width / 4) - 15, 30, 1)
+  
+  setBackgroundColor("chatLabel", 100, 100, 100, 255)
+  echo("chatLabel", [[&lt;p style="font-size:16px"&gt;&lt;b&gt;CHAT&lt;/b&gt;&lt;/p&gt;]])
+  
+  createMiniConsole("chatScroll", "chatConsole", 0, 30, width / 4 - 15, height / 4 - 30)
+  setWindowWrap("chatConsole", 48)
+  windowsExist = true
+end
+
+createChatWindow()</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>createGamehelpWindow</name>
+				<packageName></packageName>
+				<script>function createGamehelpWindow() 
+  width, height = getMainWindowSize()
+  createScrollBox("gamehelpScroll", 3 * (width / 4) - 15, height / 4, width / 4, height / 4)
+  createLabel("gamehelpScroll", "gamehelpLabel", 0, 0, (width / 4) - 15, 30, 1)
+  
+  setBackgroundColor("gamehelpLabel", 100, 100, 100, 255)
+  echo("gamehelpLabel", [[&lt;p style="font-size:16px"&gt;&lt;b&gt;GAMEHELP&lt;/b&gt;&lt;/p&gt;]])
+  
+  createMiniConsole("gamehelpScroll", "gamehelpConsole", 0, 30, width / 4 - 15, height / 4 - 30)
+  setWindowWrap("gamehelpConsole", 48)
+  windowsExist = true
+end
+
+createGamehelpWindow()</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>resizeWindows</name>
+				<packageName></packageName>
+				<script>function resizeWindows(event, x, y)
+  if windowsExist == false then
+    createChatWindow()
+    createGamehelpWindow()
+  else
+    width, height = getMainWindowSize()
+    resizeWindow("chatScroll", width / 4, height / 4)
+    moveWindow("chatScroll", 3 * (width / 4) - 15, 0)
+    
+    resizeWindow("chatConsole", width / 4 - 15, height / 4 - 30)
+    moveWindow("chatConsole", 0, 30)
+    
+    resizeWindow("chatLabel", width / 4 - 15, 30)
+    
+    resizeWindow("gamehelpScroll", width / 4, height / 4)
+    moveWindow("gamehelpScroll", 3 * (width / 4) - 15, height / 4)
+    
+    resizeWindow("gamehelpConsole", width / 4 - 15, height / 4)
+    moveWindow("gamehelpConsole", 0, 30)
+    
+    resizeWindow("gamehelpLabel", width / 4 - 15, 30)
+  end
+end
+</script>
+				<eventHandlerList />
+			</Script>
+		</ScriptGroup>
+	</ScriptPackage>
+</MudletPackage>
