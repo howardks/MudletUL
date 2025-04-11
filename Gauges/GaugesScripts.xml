@@ -244,8 +244,7 @@ registerAnonymousEventHandler("updateGauge", updateGauge, false)</script>
     totalGap = totalGap + largeBarWidth + gap
   end
 end
-
-registerAnonymousEventHandler("sysWindowResizeEvent", resizeGauges, false)</script>
+</script>
 				<eventHandlerList />
 			</Script>
 		</ScriptGroup>
